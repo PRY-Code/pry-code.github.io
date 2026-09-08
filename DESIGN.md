@@ -6,7 +6,7 @@ Visual thesis: a dark editorial film poster with sharp technical geometry, gener
 space, italic type and one acid-chartreuse accent, drawn from PRY's workbench.
 
 Content plan: product promise → Why PRY and practical benefits → model choice → project memory → visible work and
-verification → COMING SOON and the public organization link. All explanatory copy
+verification → implemented principles → COMING SOON and the public organization link. All explanatory copy
 is Russian; product/provider names and the requested COMING SOON label are retained.
 
 Interaction thesis: one wheel/touch gesture advances one scene; text and diagrams
@@ -40,6 +40,10 @@ No invented release date, mailing-list endpoint, performance claim or download.
 - One dominant diagram per scene, no decorative card grid or stock gradients.
 - Display copy omits full stops and decorative point markers. The Why PRY scene
   uses four numbered benefit rows linked to the relevant product details.
+- Principles use six accessible tabs and short process diagrams. Copy is grounded
+  in the implemented runtime: completion gate, evidence provenance, bounded file
+  alternatives, recovery budgets, selective context and source-bound experience.
+  Research hypotheses and unimplemented general search modes are not product claims.
 - Transitions use transforms/opacity and modest clip reveals; ambient motion can
   be disabled, and reduced-motion preference produces immediate scene changes.
 

@@ -33,7 +33,7 @@ def check_bounds(page):
       const footer = document.querySelector('.site-footer').getBoundingClientRect();
       const header = document.querySelector('.site-header').getBoundingClientRect();
       const copy = scene.querySelector('.copy, .soon-copy');
-      const targets = [...copy.querySelectorAll('h1,h2,.description,.soon-description,.button'), ...scene.querySelectorAll('.visual,.work-visual p,.workbench-footer,.benefit a')]
+      const targets = [...copy.querySelectorAll('h1,h2,.description,.soon-description,.button'), ...scene.querySelectorAll('.visual,.work-visual p,.workbench-footer,.benefit a,.principle-tabs button,.principle-panel')]
         .filter(el => el.checkVisibility());
       return {
         documentOverflow: document.documentElement.scrollWidth > innerWidth + 1,
@@ -96,7 +96,18 @@ def main():
         page.keyboard.press("ArrowRight")
         assert page.locator("#panel-checks").is_visible()
         checks["scenario_tabs_and_keyboard"] = True
-        page.locator("#work-title").focus()
+        page.locator(".scene-nav [href='#principles']").click()
+        settled(page, "principles")
+        page.locator("#principle-tab-control").focus()
+        page.keyboard.press("ArrowRight")
+        assert page.locator("#principle-evidence").is_visible()
+        page.keyboard.press("ArrowDown")
+        assert page.locator("#principle-alternatives").is_visible()
+        page.keyboard.press("End")
+        assert page.locator("#principle-experience").is_visible()
+        assert page.locator("#tab-checks").get_attribute("aria-selected") == "true"
+        checks["principle_tabs_are_independent_and_keyboard_accessible"] = True
+        page.locator("#principles-title").focus()
         page.keyboard.press("End")
         settled(page, "soon")
         assert page.get_by_role("heading", name="COMING SOON").is_visible()
@@ -112,7 +123,7 @@ def main():
         layouts = []
         for width, height in sizes:
             page.set_viewport_size({"width": width, "height": height})
-            for index, name in enumerate(["start","why","models","memory","work","soon"]):
+            for index, name in enumerate(["start","why","models","memory","work","principles","soon"]):
                 page.locator(f".scene-nav [data-scene-link='{index}']").click()
                 page.wait_for_timeout(80)
                 bounds = check_bounds(page)
@@ -123,6 +134,12 @@ def main():
                     for tab in ("context", "changes", "checks"):
                         page.locator(f"[data-work-tab='{tab}']").click()
                         layouts.append({"width":width,"height":height,"scene":f"work-{tab}",**check_bounds(page)})
+                if name == "principles":
+                    for key in ("control", "evidence", "alternatives", "recovery", "context", "experience"):
+                        page.locator(f"#principle-tab-{key}").click()
+                        layouts.append({"width":width,"height":height,"scene":f"principle-{key}",**check_bounds(page)})
+                        if width in (1440, 390, 360) and key in ("control", "alternatives", "context"):
+                            page.screenshot(path=str(OUTPUT / f"{width}-principle-{key}.png"))
         checks["layouts"] = layouts
         reduced = browser.new_page(viewport={"width":390,"height":844}, reduced_motion="reduce")
         reduced.goto(base + "/#memory")
@@ -143,10 +160,11 @@ def main():
         checks["touch_swipe"] = True
         plain = browser.new_page(java_script_enabled=False, viewport={"width":390,"height":844})
         plain.goto(base)
-        assert plain.locator(".scene").count() == 6
-        assert all(plain.locator(".scene").nth(i).is_visible() for i in range(6))
+        assert plain.locator(".scene").count() == 7
+        assert all(plain.locator(".scene").nth(i).is_visible() for i in range(7))
         plain.locator("#soon").scroll_into_view_if_needed()
         assert plain.get_by_role("link", name="Следить за проектом").is_visible()
+        assert all(plain.locator(".principle-panel").nth(i).is_visible() for i in range(6))
         checks["readable_without_javascript"] = True
         checks["console_errors"] = errors
         checks["failed_resources"] = failures

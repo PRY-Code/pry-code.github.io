@@ -198,24 +198,26 @@
     document.querySelector('.model-paths .signal-path').setAttribute('d', modelPaths[button.dataset.model]);
   }));
 
-  const tabs = [...document.querySelectorAll('[data-work-tab]')];
-  function selectTab(button) {
-    tabs.forEach(tab => {
-      const selected = tab === button;
-      tab.setAttribute('aria-selected', String(selected));
-      tab.tabIndex = selected ? 0 : -1;
-      document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
-    });
-  }
-  tabs.forEach((button, position) => {
-    button.addEventListener('click', () => selectTab(button));
-    button.addEventListener('keydown', event => {
-      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-      event.preventDefault();
-      const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 :
-        (position + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-      selectTab(tabs[nextIndex]);
-      tabs[nextIndex].focus();
+  document.querySelectorAll('[role=tablist]').forEach(group => {
+    const tabs = [...group.querySelectorAll('[role=tab]')];
+    function selectTab(button) {
+      tabs.forEach(tab => {
+        const selected = tab === button;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+      });
+    }
+    tabs.forEach((button, position) => {
+      button.addEventListener('click', () => selectTab(button));
+      button.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 :
+          (position + (['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : -1) + tabs.length) % tabs.length;
+        selectTab(tabs[nextIndex]);
+        tabs[nextIndex].focus();
+      });
     });
   });
 

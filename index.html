@@ -19,8 +19,8 @@
   <link rel="canonical" href="https://pry-code.github.io/">
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/ibm-plex-sans-cyrillic-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=2">
-  <script src="app.js?v=2" defer></script>
+  <link rel="stylesheet" href="styles.css?v=3">
+  <script src="app.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#presentation">К содержимому</a>
@@ -70,6 +70,7 @@
           <p class="eyebrow reveal">01 / Почему PRY</p>
           <h2 class="section-title reveal" id="why-title" tabindex="-1">Меньше рутины<br><em>Больше контроля</em></h2>
           <p class="description reveal">Вы сосредоточены на задаче<br>PRY связывает модели, контекст и проверку в одном пространстве</p>
+          <a class="principles-link reveal" href="#principles" data-scene-link="5">На каких принципах это работает <svg><use href="#arrow-up-right"/></svg></a>
         </div>
         <ol class="benefits" aria-label="Преимущества PRY">
           <li class="benefit reveal"><a href="#models" data-scene-link="2"><span class="benefit-number" aria-hidden="true">01</span><div><h3>Модель выбираете вы</h3><p>Облачный API или локальная модель — под вашу задачу и бюджет</p></div><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></li>
@@ -169,6 +170,67 @@
       </div>
     </section>
 
+    <section class="scene principles-scene" id="principles" aria-labelledby="principles-title" data-name="Принципы PRY">
+      <div class="scene-grid">
+        <div class="copy">
+          <p class="eyebrow reveal">05 / Как устроен агент</p>
+          <h2 class="section-title reveal" id="principles-title" tabindex="-1">Принципы<br> <em>PRY</em></h2>
+          <div class="principle-tabs reveal" role="tablist" aria-label="Принципы работы PRY">
+            <button id="principle-tab-control" type="button" role="tab" aria-selected="true" aria-controls="principle-control" tabindex="0"><span>01</span><strong>Модель и управление</strong></button>
+            <button id="principle-tab-evidence" type="button" role="tab" aria-selected="false" aria-controls="principle-evidence" tabindex="-1"><span>02</span><strong>Проверяемые свидетельства</strong></button>
+            <button id="principle-tab-alternatives" type="button" role="tab" aria-selected="false" aria-controls="principle-alternatives" tabindex="-1"><span>03</span><strong>Варианты и контрпримеры</strong></button>
+            <button id="principle-tab-recovery" type="button" role="tab" aria-selected="false" aria-controls="principle-recovery" tabindex="-1"><span>04</span><strong>Ошибки и пределы</strong></button>
+            <button id="principle-tab-context" type="button" role="tab" aria-selected="false" aria-controls="principle-context" tabindex="-1"><span>05</span><strong>Контекст по делу</strong></button>
+            <button id="principle-tab-experience" type="button" role="tab" aria-selected="false" aria-controls="principle-experience" tabindex="-1"><span>06</span><strong>Проверенный опыт</strong></button>
+          </div>
+        </div>
+        <div class="principle-reader reveal">
+          <article id="principle-control" class="principle-panel" role="tabpanel" aria-labelledby="principle-tab-control" tabindex="0">
+            <p class="principle-meta">01 / Модель ≠ агент</p>
+            <h3>«Готово» —<br>после проверки</h3>
+            <div class="principle-copy"><p>Модель предлагает действия и результат, а PRY отдельно ведёт задачу, ограничения и состояние, запускает заданные проверки и решает, можно ли завершить работу</p></div>
+            <p class="principle-scope">Без независимых проверок задача остаётся без подтверждённого завершения</p>
+            <ol class="principle-flow" aria-label="Порядок работы"><li>Предложение</li><li>Проверки</li><li>Решение</li></ol>
+          </article>
+          <article id="principle-evidence" class="principle-panel" role="tabpanel" aria-labelledby="principle-tab-evidence" tabindex="0" hidden>
+            <p class="principle-meta">02 / У каждого вывода есть основание</p>
+            <h3>У свидетельства<br>есть источник</h3>
+            <div class="principle-copy"><p>PRY связывает результат проверки с наблюдением инструмента и текущей версией файлов</p><p>Выводы модели отмечаются как гипотезы</p></div>
+            <p class="principle-scope">Выдуманная ссылка на проверку или устаревшее свидетельство не подтверждают завершение</p>
+            <ol class="principle-flow" aria-label="Порядок работы"><li>Наблюдение</li><li>Версия</li><li>Свидетельство</li></ol>
+          </article>
+          <article id="principle-alternatives" class="principle-panel" role="tabpanel" aria-labelledby="principle-tab-alternatives" tabindex="0" hidden>
+            <p class="principle-meta">03 / Проверять альтернативы</p>
+            <h3>Проверить<br>другой вариант</h3>
+            <div class="principle-copy"><p>Для файловых задач PRY может подготовить варианты в отдельных рабочих копиях</p><p>Каждый проходит заданные проверки и дополнительный разбор контрпримеров</p></div>
+            <p class="principle-scope">В проект переносится прошедший отбор вариант — в пределах бюджета</p>
+            <ol class="principle-flow" aria-label="Порядок работы"><li>Рабочие копии</li><li>Проверка и критика</li><li>Отбор</li></ol>
+          </article>
+          <article id="principle-recovery" class="principle-panel" role="tabpanel" aria-labelledby="principle-tab-recovery" tabindex="0" hidden>
+            <p class="principle-meta">04 / Ошибка — часть процесса</p>
+            <h3>Ошибку можно<br>исправить</h3>
+            <div class="principle-copy"><p>PRY возвращает модели причину сбоя и подсказку для исправления запроса</p><p>Повторяющиеся циклы распознаются, а вызовы модели и инструментов учитываются в общем бюджете</p></div>
+            <p class="principle-scope">Восстановление ограничено доступными проверками и оставшимся бюджетом</p>
+            <ol class="principle-flow" aria-label="Порядок работы"><li>Сбой</li><li>Обратная связь</li><li>Новая попытка</li></ol>
+          </article>
+          <article id="principle-context" class="principle-panel" role="tabpanel" aria-labelledby="principle-tab-context" tabindex="0" hidden>
+            <p class="principle-meta">05 / Большая память, короткий запрос</p>
+            <h3>Память большая<br>Контекст выборочный</h3>
+            <div class="principle-copy"><p>В запрос попадают задача, релевантные источники, свежие наблюдения и открытые инструменты</p><p>Старая переписка сжимается, а задача и её проверки хранятся отдельно</p></div>
+            <p class="principle-scope">Сводка помечается как сокращённый контекст с возможными пропусками</p>
+            <ol class="principle-flow" aria-label="Порядок работы"><li>Источники</li><li>Отбор</li><li>Короткий запрос</li></ol>
+          </article>
+          <article id="principle-experience" class="principle-panel" role="tabpanel" aria-labelledby="principle-tab-experience" tabindex="0" hidden>
+            <p class="principle-meta">06 / Учиться на подтверждённом</p>
+            <h3>Сохранять опыт<br>с подтверждением</h3>
+            <div class="principle-copy"><p>После проверенных запусков PRY сохраняет краткие записи о выполненных действиях</p><p>Они могут помочь следующей задаче, пока связанные источники остаются актуальными</p></div>
+            <p class="principle-scope">При изменении связанных файлов устаревшая запись исключается из контекста</p>
+            <ol class="principle-flow" aria-label="Порядок работы"><li>Проверенный результат</li><li>Запись опыта</li><li>Следующая задача</li></ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="scene soon-scene" id="soon" aria-labelledby="soon-title" data-name="Скоро">
       <div class="soon-grid" aria-hidden="true"></div>
       <div class="soon-copy">
@@ -190,11 +252,12 @@
       <a href="#models" data-scene-link="2" aria-label="03 — Модели"><span>03</span><i></i></a>
       <a href="#memory" data-scene-link="3" aria-label="04 — Память проекта"><span>04</span><i></i></a>
       <a href="#work" data-scene-link="4" aria-label="05 — Контроль действий"><span>05</span><i></i></a>
-      <a href="#soon" data-scene-link="5" aria-label="06 — Скоро"><span>06</span><i></i></a>
+      <a href="#principles" data-scene-link="5" aria-label="06 — Принципы PRY"><span>06</span><i></i></a>
+      <a href="#soon" data-scene-link="6" aria-label="07 — Скоро"><span>07</span><i></i></a>
     </nav>
     <div class="scene-arrows"><button class="icon-button previous" type="button" aria-label="Предыдущий раздел"><svg><use href="#arrow"/></svg></button><button class="icon-button next" type="button" aria-label="Следующий раздел"><svg><use href="#arrow"/></svg></button></div>
   </footer>
   <div id="scene-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-  <noscript><style>.motion-toggle,.scene-arrows,.scroll-hint{display:none}.site-footer{position:sticky}</style></noscript>
+  <noscript><style>.motion-toggle,.scene-arrows,.scroll-hint{display:none}.site-footer{position:sticky}.principle-tabs{display:none}.principle-panel[hidden]{display:block!important}.principle-panel{margin-block:36px}.principles-scene .scene-grid{display:block;height:auto}</style></noscript>
 </body>
 </html>
