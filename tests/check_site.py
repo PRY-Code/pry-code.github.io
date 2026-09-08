@@ -206,14 +206,29 @@ def main():
           const footer = document.querySelector('.site-footer').getBoundingClientRect();
           return main.top >= header.bottom && main.bottom <= footer.top && scrollY === 0;
         }""")
-        phone.locator("#work").evaluate("el => el.scrollTop = el.scrollHeight")
+        phone_client = phone.context.new_cdp_session(phone)
+        phone_client.send("Input.dispatchTouchEvent", {"type":"touchStart","touchPoints":[{"x":180,"y":570}]})
+        for y in (520, 470, 420, 370, 320, 270):
+            phone_client.send("Input.dispatchTouchEvent", {"type":"touchMove","touchPoints":[{"x":180,"y":y}]})
+            phone.wait_for_timeout(50)
+        phone_client.send("Input.dispatchTouchEvent", {"type":"touchEnd","touchPoints":[]})
+        phone.wait_for_timeout(300)
+        assert selected(phone) == "work", "Scrolling content must not also change scenes"
         assert phone.evaluate("""() => {
           const panel = document.querySelector('#work .workbench-footer').getBoundingClientRect();
           const main = document.querySelector('main').getBoundingClientRect();
           return panel.top >= main.top && panel.bottom <= main.bottom;
         }""")
         assert phone.locator(".next").is_visible()
-        phone.locator(".next").click()
+        phone.locator("#work").evaluate("el => el.scrollTop = 0")
+        phone.mouse.move(180, 400)
+        for _ in range(4):
+            phone.mouse.wheel(0, 180)
+            phone.wait_for_timeout(30)
+        assert selected(phone) == "work", "Wheel momentum must not change scenes after content scrolling"
+        phone.wait_for_timeout(250)
+        phone.mouse.wheel(0, 300)
+        phone.wait_for_function("document.body.dataset.scene === 'principles'")
         assert selected(phone) == "principles"
         checks["mobile_animation_resize_and_large_text"] = True
         plain = browser.new_page(java_script_enabled=False, viewport={"width":390,"height":844})

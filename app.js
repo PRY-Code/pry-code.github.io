@@ -13,7 +13,7 @@
   let paused = reduced.matches;
   let animations = [];
   let wheelTotal = 0;
-  let wheelConsumed = false;
+  let wheelMode = null;
   let wheelTimer;
   let touchOrigin = null;
   let pointerFrame;
@@ -129,16 +129,17 @@
 
   document.addEventListener('wheel', event => {
     if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
-    if (canScrollScene(event.deltaY)) return;
-    event.preventDefault();
     clearTimeout(wheelTimer);
-    wheelTimer = setTimeout(() => { wheelTotal = 0; wheelConsumed = false; }, 190);
-    if (busy || wheelConsumed) return;
+    wheelTimer = setTimeout(() => { wheelTotal = 0; wheelMode = null; }, 190);
+    if (busy || wheelMode === 'scene') { event.preventDefault(); return; }
+    if (canScrollScene(event.deltaY)) { wheelMode = 'scroll'; return; }
+    event.preventDefault();
+    if (wheelMode === 'scroll') return;
     const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
     if (Math.sign(delta) !== Math.sign(wheelTotal)) wheelTotal = 0;
     wheelTotal += delta;
     if (Math.abs(wheelTotal) >= 55) {
-      wheelConsumed = true;
+      wheelMode = 'scene';
       go(index + Math.sign(wheelTotal));
       wheelTotal = 0;
     }
@@ -156,19 +157,21 @@
   });
 
   stage.addEventListener('touchstart', event => {
-    touchOrigin = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
+    touchOrigin = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY, scrolled: false } : null;
   }, { passive: true });
   stage.addEventListener('touchmove', event => {
     if (!touchOrigin || event.touches.length !== 1) { touchOrigin = null; return; }
     const delta = touchOrigin.y - event.touches[0].clientY;
-    if (!canScrollScene(delta) && Math.abs(delta) > 8) event.preventDefault();
+    if (canScrollScene(delta)) touchOrigin.scrolled = true;
+    else if (Math.abs(delta) > 8) event.preventDefault();
   }, { passive: false });
   stage.addEventListener('touchend', event => {
     if (!touchOrigin || !event.changedTouches.length) return;
     const deltaY = touchOrigin.y - event.changedTouches[0].clientY;
     const deltaX = touchOrigin.x - event.changedTouches[0].clientX;
+    const scrolled = touchOrigin.scrolled;
     touchOrigin = null;
-    if (Math.abs(deltaY) > 45 && Math.abs(deltaY) > Math.abs(deltaX) * 1.3 && !canScrollScene(deltaY)) go(index + Math.sign(deltaY));
+    if (!scrolled && Math.abs(deltaY) > 45 && Math.abs(deltaY) > Math.abs(deltaX) * 1.3 && !canScrollScene(deltaY)) go(index + Math.sign(deltaY));
   }, { passive: true });
 
   stage.addEventListener('pointermove', event => {
