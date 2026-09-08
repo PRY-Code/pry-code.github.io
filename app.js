@@ -44,6 +44,9 @@
     });
     previous.disabled = index === 0;
     next.disabled = index === scenes.length - 1;
+    document.querySelector('.scene-nav a.current').scrollIntoView({
+      block: 'nearest', inline: 'nearest', behavior: motion() ? 'smooth' : 'auto'
+    });
     status.textContent = `Раздел ${index + 1} из ${scenes.length}: ${scenes[index].dataset.name}`;
   }
 

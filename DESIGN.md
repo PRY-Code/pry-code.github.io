@@ -5,7 +5,7 @@ Status: Active · 2026-09-08
 Visual thesis: a dark editorial film poster with sharp technical geometry, generous
 space, italic type and one acid-chartreuse accent, drawn from PRY's workbench.
 
-Content plan: product promise → model choice → project memory → visible work and
+Content plan: product promise → Why PRY and practical benefits → model choice → project memory → visible work and
 verification → COMING SOON and the public organization link. All explanatory copy
 is Russian; product/provider names and the requested COMING SOON label are retained.
 
@@ -38,6 +38,8 @@ No invented release date, mailing-list endpoint, performance claim or download.
 - Accent #d7ff4a; square corners and fine structural lines.
 - IBM Plex Sans for copy and italic display, JetBrains Mono for labels.
 - One dominant diagram per scene, no decorative card grid or stock gradients.
+- Display copy omits full stops and decorative point markers. The Why PRY scene
+  uses four numbered benefit rows linked to the relevant product details.
 - Transitions use transforms/opacity and modest clip reveals; ambient motion can
   be disabled, and reduced-motion preference produces immediate scene changes.
 

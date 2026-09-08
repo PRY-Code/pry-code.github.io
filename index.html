@@ -4,23 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0b0b">
-  <meta name="description" content="PRY Agent — ваши модели, память проекта и работа, которую видно. Знакомьтесь с новым AI-пространством. Coming soon.">
-  <meta property="og:title" content="PRY Agent — ваш ИИ. Реальная работа.">
-  <meta property="og:description" content="Выбирайте модели. Сохраняйте контекст. Следите за действиями и проверяйте результат. COMING SOON.">
+  <meta name="description" content="PRY Agent — ваши модели, память проекта и работа, которую видно — Coming soon">
+  <meta property="og:title" content="PRY Agent — ваш ИИ, реальная работа">
+  <meta property="og:description" content="Выбирайте модели, сохраняйте контекст, следите за действиями и проверяйте результат — COMING SOON">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:url" content="https://pry-code.github.io/">
-  <meta property="og:image" content="https://pry-code.github.io/assets/social.png">
+  <meta property="og:image" content="https://pry-code.github.io/assets/social.png?v=2">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="PRY Agent. Ваш ИИ. Реальная работа. Coming soon.">
+  <meta property="og:image:alt" content="PRY Agent — ваш ИИ, реальная работа — Coming soon">
   <meta name="twitter:card" content="summary_large_image">
-  <title>PRY Agent — ваш ИИ. Реальная работа.</title>
+  <title>PRY Agent — ваш ИИ, реальная работа</title>
   <link rel="canonical" href="https://pry-code.github.io/">
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/ibm-plex-sans-cyrillic-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=2">
+  <script src="app.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#presentation">К содержимому</a>
@@ -38,7 +38,7 @@
     </a>
     <div class="header-right">
       <a class="header-link" href="https://github.com/PRY-Code" target="_blank" rel="noopener noreferrer">За проектом <svg><use href="#arrow-up-right"/></svg></a>
-      <span class="soon-tag"><i></i> COMING SOON</span>
+      <span class="soon-tag">COMING SOON</span>
       <button class="motion-toggle icon-button" type="button" aria-label="Выключить анимацию" aria-pressed="false" title="Выключить анимацию"><svg><use href="#pause"/></svg></button>
     </div>
   </header>
@@ -47,31 +47,46 @@
     <section class="scene hero is-current" id="start" aria-labelledby="hero-title" data-name="Начало">
       <div class="scene-grid">
         <div class="copy hero-copy">
-          <p class="eyebrow reveal"><span class="tiny-square"></span> ИИ в вашем рабочем пространстве</p>
+          <p class="eyebrow reveal">ИИ в вашем рабочем пространстве</p>
           <h1 class="hero-name reveal" id="hero-title" tabindex="-1">PRY<span>AGENT</span></h1>
-          <h2 class="hero-promise reveal">Ваш ИИ.<br><em>Реальная работа.</em></h2>
-          <p class="description reveal">От запроса — к действиям.<br>С вашими моделями и контекстом проекта.</p>
-          <a class="button primary reveal" href="#models" data-scene-link="1">Познакомиться с PRY <svg><use href="#arrow"/></svg></a>
+          <h2 class="hero-promise reveal">Ваш ИИ<br><em>Реальная работа</em></h2>
+          <p class="description reveal">От запроса — к действиям<br>С вашими моделями и контекстом проекта</p>
+          <a class="button primary reveal" href="#why" data-scene-link="1">Почему PRY <svg><use href="#arrow"/></svg></a>
         </div>
         <div class="visual hero-visual" role="img" aria-label="Знак PRY объединяет инструменты, контекст и проверку">
           <div class="hero-axis axis-x"></div><div class="hero-axis axis-y"></div>
           <span class="coordinate top">ИНСТРУМЕНТЫ</span><span class="coordinate bottom">КОНТЕКСТ / ПРОВЕРКА</span>
           <div class="engine-plane plane-back"></div><div class="engine-plane plane-mid"></div>
           <div class="engine-plane plane-front"><img src="assets/mark.svg" alt="" width="320" height="320"></div>
-          <div class="orbit-square orbit-one"></div><div class="orbit-square orbit-two"></div>
-          <div class="engine-caption"><span class="tiny-square"></span> Одна задача. Весь контекст.</div>
+          <div class="engine-caption">Одна задача — весь контекст</div>
         </div>
       </div>
-      <div class="edge-note">МЕНЬШЕ ПЕРЕКЛЮЧЕНИЙ. БОЛЬШЕ РАБОТЫ.</div>
+      <div class="edge-note">МЕНЬШЕ ПЕРЕКЛЮЧЕНИЙ — БОЛЬШЕ РАБОТЫ</div>
+    </section>
+
+    <section class="scene why-scene" id="why" aria-labelledby="why-title" data-name="Почему PRY">
+      <div class="scene-grid">
+        <div class="copy">
+          <p class="eyebrow reveal">01 / Почему PRY</p>
+          <h2 class="section-title reveal" id="why-title" tabindex="-1">Меньше рутины<br><em>Больше контроля</em></h2>
+          <p class="description reveal">Вы сосредоточены на задаче<br>PRY связывает модели, контекст и проверку в одном пространстве</p>
+        </div>
+        <ol class="benefits" aria-label="Преимущества PRY">
+          <li class="benefit reveal"><a href="#models" data-scene-link="2"><span class="benefit-number" aria-hidden="true">01</span><div><h3>Модель выбираете вы</h3><p>Облачный API или локальная модель — под вашу задачу и бюджет</p></div><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></li>
+          <li class="benefit reveal"><a href="#memory" data-scene-link="3"><span class="benefit-number" aria-hidden="true">02</span><div><h3>Меньше объяснений заново</h3><p>Память проекта связывает код и решения, автокомпакт сохраняет текущую задачу</p></div><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></li>
+          <li class="benefit reveal"><a href="#work" data-scene-link="4"><span class="benefit-number" aria-hidden="true">03</span><div><h3>У «готово» есть основания</h3><p>Заданные критерии проходят независимую проверку — вы видите её результаты</p></div><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></li>
+          <li class="benefit reveal"><a href="#work" data-scene-link="4"><span class="benefit-number" aria-hidden="true">04</span><div><h3>Изменения под контролем</h3><p>Действия видны в диалоге, версии файлов — в Git-истории с восстановлением</p></div><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></li>
+        </ol>
+      </div>
     </section>
 
     <section class="scene models-scene" id="models" aria-labelledby="models-title" data-name="Модели">
       <div class="scene-grid">
         <div class="copy">
-          <p class="eyebrow reveal">01 / Свобода выбора</p>
-          <h2 class="section-title reveal" id="models-title" tabindex="-1">Один агент.<br><em>Ваша модель.</em></h2>
-          <p class="description reveal">Облачный API или локальная модель.<br>Выбирайте то, что подходит вашей задаче.</p>
-          <p class="side-caption reveal">Привычное пространство.<br>Разные возможности внутри.</p>
+          <p class="eyebrow reveal">02 / Свобода выбора</p>
+          <h2 class="section-title reveal" id="models-title" tabindex="-1">Один агент<br><em>Ваша модель</em></h2>
+          <p class="description reveal">Облачный API или локальная модель<br>Выбирайте то, что подходит вашей задаче</p>
+          <p class="side-caption reveal">Привычное пространство<br>Разные возможности внутри</p>
         </div>
         <div class="visual model-visual">
           <div class="visual-topline"><span>МОДЕЛИ / ПОДКЛЮЧЕНИЯ</span><span>ВЫБОР ЗА ВАМИ</span></div>
@@ -82,7 +97,7 @@
           <button class="model-choice model-claude" type="button" data-model="Claude" data-model-note="Облачный API" aria-pressed="false"><small>ОБЛАКО</small>Claude<span>↗</span></button>
           <button class="model-choice model-ollama" type="button" data-model="Ollama" data-model-note="Локальная модель" aria-pressed="false"><small>ЛОКАЛЬНО</small>Ollama<span>↗</span></button>
           <p class="model-caption" aria-live="polite"><span id="model-name">Gemini</span><span id="model-note">Облачный API</span></p>
-          <p class="visual-footnote">Нажмите на модель, чтобы изменить схему.</p>
+          <p class="visual-footnote">Нажмите на модель, чтобы изменить схему</p>
         </div>
       </div>
     </section>
@@ -90,10 +105,10 @@
     <section class="scene memory-scene" id="memory" aria-labelledby="memory-title" data-name="Память">
       <div class="scene-grid">
         <div class="copy">
-          <p class="eyebrow reveal">02 / Не начинать с нуля</p>
-          <h2 class="section-title reveal" id="memory-title" tabindex="-1">Память<br><em>вашего проекта.</em></h2>
-          <p class="description reveal">Файлы, решения и история задач —<br>в контексте одного проекта.</p>
-          <p class="side-caption reveal">Возвращайтесь к работе.<br>Продолжайте с нужного места.</p>
+          <p class="eyebrow reveal">03 / Не начинать с нуля</p>
+          <h2 class="section-title reveal" id="memory-title" tabindex="-1">Память<br><em>вашего проекта</em></h2>
+          <p class="description reveal">Файлы, решения и история задач —<br>в контексте одного проекта</p>
+          <p class="side-caption reveal">Возвращайтесь к работе<br>Продолжайте с нужного места</p>
         </div>
         <div class="visual memory-visual" role="img" aria-label="Карта памяти связывает проект с кодом, решениями, задачами и источниками">
           <div class="visual-topline"><span>КАРТА ПРОЕКТА</span><span>СВЯЗИ И КОНТЕКСТ</span></div>
@@ -101,15 +116,14 @@
             <path d="M300 230 112 82M300 230 450 66M300 230 518 232M300 230 430 390M300 230 92 357M112 82 450 66M450 66 518 232M518 232 430 390M430 390 92 357M92 357 112 82"/>
             <path class="signal-path" d="M92 357 300 230 450 66"/>
             <path class="signal-path second" d="M112 82 300 230 430 390"/>
-            <g class="small-nodes"><rect x="193" y="130" width="6" height="6"/><rect x="370" y="147" width="6" height="6"/><rect x="410" y="224" width="6" height="6"/><rect x="230" y="344" width="6" height="6"/><rect x="100" y="206" width="6" height="6"/></g>
           </svg>
           <div class="brain-core"><span>PRY</span><small>ПРОЕКТ</small></div>
-          <div class="brain-node node-code"><i></i><span>Код</span><small>ФАЙЛЫ И СИМВОЛЫ</small></div>
-          <div class="brain-node node-decisions"><i></i><span>Решения</span></div>
-          <div class="brain-node node-sources"><i></i><span>Источники</span></div>
-          <div class="brain-node node-tasks"><i></i><span>Задачи</span></div>
-          <div class="brain-node node-history"><i></i><span>История</span></div>
-          <p class="memory-caption">Контекст связан.<br><strong>Следующий шаг — осмысленнее.</strong></p>
+          <div class="brain-node node-code"><span>Код</span><small>ФАЙЛЫ И СИМВОЛЫ</small></div>
+          <div class="brain-node node-decisions"><span>Решения</span></div>
+          <div class="brain-node node-sources"><span>Источники</span></div>
+          <div class="brain-node node-tasks"><span>Задачи</span></div>
+          <div class="brain-node node-history"><span>История</span></div>
+          <p class="memory-caption">Контекст связан<br><strong>Следующий шаг — осмысленнее</strong></p>
         </div>
       </div>
     </section>
@@ -117,14 +131,14 @@
     <section class="scene work-scene" id="work" aria-labelledby="work-title" data-name="Контроль">
       <div class="scene-grid">
         <div class="copy">
-          <p class="eyebrow reveal">03 / Работа на виду</p>
-          <h2 class="section-title reveal" id="work-title" tabindex="-1">Видно каждый<br><em>важный шаг.</em></h2>
-          <p class="description reveal">Действия агента, изменения в файлах<br>и проверка результата — перед вами.</p>
-          <p class="side-caption reveal">«Готово» должно<br>опираться на подтверждение.</p>
+          <p class="eyebrow reveal">04 / Работа на виду</p>
+          <h2 class="section-title reveal" id="work-title" tabindex="-1">Видно каждый<br><em>важный шаг</em></h2>
+          <p class="description reveal">Действия агента, изменения в файлах<br>и проверка результата — перед вами</p>
+          <p class="side-caption reveal">«Готово» должно<br>опираться на подтверждение</p>
         </div>
         <div class="visual work-visual">
           <div class="workbench-header"><span><img src="assets/mark.svg" alt="" width="19" height="19"> PRY / WORKSPACE</span><small>ПРИМЕР СЦЕНАРИЯ</small></div>
-          <div class="workbench-task"><span class="task-square"></span><div><small>ЗАДАЧА</small><p>Добавить обработку ошибок</p></div></div>
+          <div class="workbench-task"><div><small>ЗАДАЧА</small><p>Добавить обработку ошибок</p></div></div>
           <div class="work-tabs" role="tablist" aria-label="Этапы работы агента">
             <button type="button" id="tab-context" role="tab" aria-selected="true" aria-controls="panel-context" data-work-tab="context">01 Контекст</button>
             <button type="button" id="tab-changes" role="tab" aria-selected="false" aria-controls="panel-changes" data-work-tab="changes" tabindex="-1">02 Изменения</button>
@@ -148,9 +162,9 @@
             <p class="panel-label">У результата есть основания</p>
             <div class="check-line"><svg><use href="#check"/></svg><span>Проверка синтаксиса</span></div>
             <div class="check-line"><svg><use href="#check"/></svg><span>Проверка требований</span></div>
-            <p class="check-caption">Статус опирается на проверки.<br>Вы видите, что подтверждено.</p>
+            <p class="check-caption">Статус опирается на проверки<br>Вы видите, что подтверждено</p>
           </div>
-          <div class="workbench-footer"><span class="tiny-square"></span><span>Один диалог — весь ход работы</span></div>
+          <div class="workbench-footer"><span>Один диалог — весь ход работы</span></div>
         </div>
       </div>
     </section>
@@ -159,12 +173,12 @@
       <div class="soon-grid" aria-hidden="true"></div>
       <div class="soon-copy">
         <p class="eyebrow reveal">PRY AGENT / СКОРО</p>
-        <h2 id="soon-title" tabindex="-1" class="coming-title reveal">COMING<br><span>SOON.</span></h2>
-        <p class="soon-description reveal">Ваши модели.<br>Новые возможности для работы.</p>
+        <h2 id="soon-title" tabindex="-1" class="coming-title reveal">COMING<br><span>SOON</span></h2>
+        <p class="soon-description reveal">Ваши модели<br>Новые возможности для работы</p>
         <a class="button dark reveal" href="https://github.com/PRY-Code" target="_blank" rel="noopener noreferrer">Следить за проектом <svg><use href="#arrow-up-right"/></svg></a>
       </div>
       <div class="soon-mark" aria-hidden="true">P</div>
-      <span class="soon-signature">СДЕЛАНО ДЛЯ РЕАЛЬНЫХ ЗАДАЧ.</span>
+      <span class="soon-signature">СДЕЛАНО ДЛЯ РЕАЛЬНЫХ ЗАДАЧ</span>
     </section>
   </main>
 
@@ -172,10 +186,11 @@
     <div class="scroll-hint"><span class="hint-line"></span><span>Листайте, чтобы продолжить</span></div>
     <nav class="scene-nav" aria-label="Разделы лендинга">
       <a href="#start" data-scene-link="0" class="current" aria-current="step" aria-label="01 — Начало"><span>01</span><i></i></a>
-      <a href="#models" data-scene-link="1" aria-label="02 — Модели"><span>02</span><i></i></a>
-      <a href="#memory" data-scene-link="2" aria-label="03 — Память проекта"><span>03</span><i></i></a>
-      <a href="#work" data-scene-link="3" aria-label="04 — Контроль действий"><span>04</span><i></i></a>
-      <a href="#soon" data-scene-link="4" aria-label="05 — Скоро"><span>05</span><i></i></a>
+      <a href="#why" data-scene-link="1" aria-label="02 — Почему PRY"><span>02</span><i></i></a>
+      <a href="#models" data-scene-link="2" aria-label="03 — Модели"><span>03</span><i></i></a>
+      <a href="#memory" data-scene-link="3" aria-label="04 — Память проекта"><span>04</span><i></i></a>
+      <a href="#work" data-scene-link="4" aria-label="05 — Контроль действий"><span>05</span><i></i></a>
+      <a href="#soon" data-scene-link="5" aria-label="06 — Скоро"><span>06</span><i></i></a>
     </nav>
     <div class="scene-arrows"><button class="icon-button previous" type="button" aria-label="Предыдущий раздел"><svg><use href="#arrow"/></svg></button><button class="icon-button next" type="button" aria-label="Следующий раздел"><svg><use href="#arrow"/></svg></button></div>
   </footer>

@@ -33,7 +33,7 @@ def check_bounds(page):
       const footer = document.querySelector('.site-footer').getBoundingClientRect();
       const header = document.querySelector('.site-header').getBoundingClientRect();
       const copy = scene.querySelector('.copy, .soon-copy');
-      const targets = [...copy.querySelectorAll('h1,h2,.description,.soon-description,.button'), ...scene.querySelectorAll('.visual,.work-visual p,.workbench-footer')]
+      const targets = [...copy.querySelectorAll('h1,h2,.description,.soon-description,.button'), ...scene.querySelectorAll('.visual,.work-visual p,.workbench-footer,.benefit a')]
         .filter(el => el.checkVisibility());
       return {
         documentOverflow: document.documentElement.scrollWidth > innerWidth + 1,
@@ -67,11 +67,15 @@ def main():
         assert selected(page) == "start"
         page.screenshot(path=str(OUTPUT / "desktop-start.png"))
         page.mouse.wheel(0, 600)
-        settled(page, "models")
+        settled(page, "why")
         page.mouse.wheel(0, -600)
         settled(page, "start")
-        page.get_by_role("link", name="Познакомиться с PRY").click()
+        page.get_by_role("link", name="Почему PRY", exact=True).click()
+        settled(page, "why")
+        assert page.locator(".benefit").count() == 4
+        page.locator(".benefit a").first.click()
         settled(page, "models")
+        checks["why_pry_and_benefit_links"] = True
         page.locator("[data-model='Ollama']").click()
         assert page.locator("#model-note").inner_text() == "Локальная модель"
         checks["model_selector"] = True
@@ -95,7 +99,7 @@ def main():
         page.locator("#work-title").focus()
         page.keyboard.press("End")
         settled(page, "soon")
-        assert page.get_by_role("heading", name="COMING SOON.").is_visible()
+        assert page.get_by_role("heading", name="COMING SOON").is_visible()
         assert page.locator(".next").is_disabled()
         page.screenshot(path=str(OUTPUT / "desktop-soon.png"))
         page.keyboard.press("Home")
@@ -108,7 +112,7 @@ def main():
         layouts = []
         for width, height in sizes:
             page.set_viewport_size({"width": width, "height": height})
-            for index, name in enumerate(["start","models","memory","work","soon"]):
+            for index, name in enumerate(["start","why","models","memory","work","soon"]):
                 page.locator(f".scene-nav [data-scene-link='{index}']").click()
                 page.wait_for_timeout(80)
                 bounds = check_bounds(page)
@@ -135,12 +139,12 @@ def main():
         client.send("Input.dispatchTouchEvent", {"type":"touchMove","touchPoints":[{"x":200,"y":350}]})
         client.send("Input.dispatchTouchEvent", {"type":"touchEnd","touchPoints":[]})
         touch.wait_for_timeout(100)
-        assert selected(touch) == "models"
+        assert selected(touch) == "why"
         checks["touch_swipe"] = True
         plain = browser.new_page(java_script_enabled=False, viewport={"width":390,"height":844})
         plain.goto(base)
-        assert plain.locator(".scene").count() == 5
-        assert all(plain.locator(".scene").nth(i).is_visible() for i in range(5))
+        assert plain.locator(".scene").count() == 6
+        assert all(plain.locator(".scene").nth(i).is_visible() for i in range(6))
         plain.locator("#soon").scroll_into_view_if_needed()
         assert plain.get_by_role("link", name="Следить за проектом").is_visible()
         checks["readable_without_javascript"] = True
