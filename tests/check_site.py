@@ -35,9 +35,22 @@ def check_bounds(page):
       const copy = scene.querySelector('.copy, .soon-copy');
       const targets = [...copy.querySelectorAll('h1,h2,.description,.soon-description,.button'), ...scene.querySelectorAll('.visual,.work-visual p,.workbench-footer,.benefit a,.principle-tabs button,.principle-panel')]
         .filter(el => el.checkVisibility());
+      const sibling = scene.querySelector('.scene-grid > :nth-child(2)');
+      const copyRect = copy.getBoundingClientRect();
+      const siblingRect = sibling?.getBoundingClientRect();
+      let overlaps = sibling?.checkVisibility() &&
+        Math.min(copyRect.right, siblingRect.right) - Math.max(copyRect.left, siblingRect.left) > 1 &&
+        Math.min(copyRect.bottom, siblingRect.bottom) - Math.max(copyRect.top, siblingRect.top) > 1;
+      const caption = scene.querySelector('.engine-caption');
+      if (innerWidth <= 760 && caption?.checkVisibility()) {
+        const label = caption.getBoundingClientRect();
+        const plate = scene.querySelector('.plane-front').getBoundingClientRect();
+        overlaps ||= label.top < plate.bottom;
+      }
       return {
         documentOverflow: document.documentElement.scrollWidth > innerWidth + 1,
         scrollY,
+        overlaps: Boolean(overlaps),
         overflow: targets.filter(el => {
           const r = el.getBoundingClientRect();
           return r.left < -1 || r.right > innerWidth + 1 || r.top < header.bottom - 1 || r.bottom > footer.top + 2;
@@ -119,7 +132,7 @@ def main():
         page.locator(".motion-toggle").click()
         assert page.locator("body").get_attribute("data-motion") == "off"
         checks["motion_toggle"] = True
-        sizes = [(1440,900),(1920,1080),(1200,630),(768,1024),(390,844),(360,667),(320,740),(844,390)]
+        sizes = [(1440,900),(1920,1080),(1200,630),(768,1024),(390,844),(360,667),(320,740),(393,763),(390,741),(393,800),(844,390)]
         layouts = []
         for width, height in sizes:
             page.set_viewport_size({"width": width, "height": height})
@@ -128,7 +141,7 @@ def main():
                 page.wait_for_timeout(80)
                 bounds = check_bounds(page)
                 layouts.append({"width":width,"height":height,"scene":name,**bounds})
-                if width in (390, 360, 1440):
+                if width in (390, 360, 393, 1440):
                     page.screenshot(path=str(OUTPUT / f"{width}-{name}.png"))
                 if name == "work" and height > 540:
                     for tab in ("context", "changes", "checks"):
@@ -158,6 +171,51 @@ def main():
         touch.wait_for_timeout(100)
         assert selected(touch) == "why"
         checks["touch_swipe"] = True
+        phone = browser.new_page(viewport={"width":393,"height":763}, has_touch=True, is_mobile=True, device_scale_factor=2.75)
+        phone.goto(base + "/#memory")
+        phone.evaluate("document.fonts.ready")
+        phone.wait_for_timeout(1100)
+        phone.locator(".scene-nav [href='#work']").click()
+        animation_gaps = phone.evaluate("""async () => {
+          const gaps = [], start = performance.now();
+          await new Promise(resolve => {
+            function sample() {
+              const text = document.querySelector('#work .description').getBoundingClientRect();
+              const panel = document.querySelector('#work .visual').getBoundingClientRect();
+              gaps.push(panel.top - text.bottom);
+              if (performance.now() - start > 1100) resolve(); else requestAnimationFrame(sample);
+            }
+            sample();
+          });
+          return gaps;
+        }""")
+        assert min(animation_gaps) >= 0
+        for height in (763, 741, 800, 667, 844):
+            phone.set_viewport_size({"width":393,"height":height})
+            phone.wait_for_timeout(80)
+            bounds = check_bounds(phone)
+            assert not bounds["overlaps"] and not bounds["overflow"] and not bounds["documentOverflow"], (height, bounds)
+        phone.set_viewport_size({"width":393,"height":763})
+        phone.screenshot(path=str(OUTPUT / "phone-after.png"))
+        phone.locator(".motion-toggle").click()
+        phone.locator("#work-title").evaluate("el => el.style.fontSize = '76px'")
+        assert not check_bounds(phone)["overlaps"]
+        assert phone.evaluate("""() => {
+          const main = document.querySelector('main').getBoundingClientRect();
+          const header = document.querySelector('.site-header').getBoundingClientRect();
+          const footer = document.querySelector('.site-footer').getBoundingClientRect();
+          return main.top >= header.bottom && main.bottom <= footer.top && scrollY === 0;
+        }""")
+        phone.locator("#work").evaluate("el => el.scrollTop = el.scrollHeight")
+        assert phone.evaluate("""() => {
+          const panel = document.querySelector('#work .workbench-footer').getBoundingClientRect();
+          const main = document.querySelector('main').getBoundingClientRect();
+          return panel.top >= main.top && panel.bottom <= main.bottom;
+        }""")
+        assert phone.locator(".next").is_visible()
+        phone.locator(".next").click()
+        assert selected(phone) == "principles"
+        checks["mobile_animation_resize_and_large_text"] = True
         plain = browser.new_page(java_script_enabled=False, viewport={"width":390,"height":844})
         plain.goto(base)
         assert plain.locator(".scene").count() == 7
@@ -171,7 +229,7 @@ def main():
         browser.close()
     server.shutdown()
     (OUTPUT / "checks.json").write_text(json.dumps(checks, ensure_ascii=False, indent=2) + "\n")
-    bad = [entry for entry in checks["layouts"] if entry["documentOverflow"] or entry["overflow"] or entry["scrollY"]]
+    bad = [entry for entry in checks["layouts"] if entry["documentOverflow"] or entry["overflow"] or entry["scrollY"] or entry["overlaps"]]
     print(json.dumps({"console_errors":errors,"failed_resources":failures,"layout_failures":bad,"checked_layouts":len(layouts)}, ensure_ascii=False, indent=2))
     assert not errors and not failures and not bad
 

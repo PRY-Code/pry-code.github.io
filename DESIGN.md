@@ -55,6 +55,10 @@ No invented release date, mailing-list endpoint, performance claim or download.
 - Inactive scenes are inert; current section is announced and keyboard focus is
   moved only for keyboard navigation. Focus indicators and native browser zoom remain.
 - Header/footer count toward the viewport. Touch targets are at least 44px.
+- On phones, header, presentation and footer share a dynamic-height flex frame.
+  Content rows retain their intrinsic minimum height; excess content scrolls
+  inside the scene, fully clipped above the navigation. Animations preserve the
+  gap between copy and panels. Test intermediate browser heights, not just presets.
 - No JavaScript: sections remain ordinary readable content.
 
 ## Verification

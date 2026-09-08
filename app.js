@@ -71,6 +71,7 @@
     if (keyboard) incoming.querySelector('h1, h2').focus({ preventScroll: true });
     animations = [];
     if (motion() && typeof incoming.animate === 'function') {
+      const textOffset = matchMedia('(max-width: 760px)').matches ? 12 : 28;
       animations.push(old.animate([
         { opacity: 1, transform: 'translateY(0)' },
         { opacity: 0, transform: `translateY(${-direction * 65}px)` }
@@ -81,7 +82,7 @@
       ], { duration: 820, easing: 'cubic-bezier(.2,.75,.15,1)', fill: 'both' }));
       incoming.querySelectorAll('.reveal').forEach((element, position) => {
         animations.push(element.animate([
-          { opacity: 0, transform: `translateY(${direction * 28}px)` },
+          { opacity: 0, transform: `translateY(${direction * textOffset}px)` },
           { opacity: 1, transform: 'translateY(0)' }
         ], { duration: 590, delay: 110 + position * 60, easing: 'cubic-bezier(.2,.75,.15,1)', fill: 'both' }));
       });
